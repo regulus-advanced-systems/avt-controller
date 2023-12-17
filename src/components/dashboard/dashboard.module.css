@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 40px;
+  height: calc(100vh - 40px);
+}
+
+.button {
+  text-transform: uppercase;
+  padding: 20px 40px;
+  background-color: var(--accent-color);
+}

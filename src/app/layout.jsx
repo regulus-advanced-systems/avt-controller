@@ -1,27 +1,21 @@
-import { Poppins } from 'next/font/google';
-import './globals.css';
+import { Inconsolata } from 'next/font/google';
 
-import StyledComponentsRegistry from '@/lib/styled.lib';
+import { Header } from '@/components';
 
-import Header from '@/components/header/header.component';
-
-const poppins = Poppins({ subsets: ['latin'], weight: ['400', '700'] });
+const font = Inconsolata({ subsets: ['latin'], weight: ['400', '700'] });
+import './global.styles.css';
 
 export const metadata = {
   title: 'AVT sensor controller app',
-  description: '',
-  keywords: '',
 };
 
 const RootLayout = ({ children }) => {
   return (
     <html lang="en">
-      <StyledComponentsRegistry>
-        <body className={poppins.className}>
-          <Header />
-          <main className="container">{children}</main>
-        </body>
-      </StyledComponentsRegistry>
+      <body className={font.className}>
+        <Header />
+        <main>{children}</main>
+      </body>
     </html>
   );
 };

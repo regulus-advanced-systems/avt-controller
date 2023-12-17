@@ -1,27 +1,45 @@
 'use client';
 
-import { Container } from './dashboard.elements';
+import { useEffect } from 'react';
+import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+
+import { sendCommand } from '@/actions/send-command.action';
+
+import style from './dashboard.module.css';
 
 const Dashboard = () => {
-  const sendCommand = async (command) => {
-    const res = await fetch('/api/v1/command', {
-      method: 'post',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ command }),
-    });
-    const data = await res.json();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const res = searchParams.get('res');
 
-    if (data.success) {
-      alert(`Server returned: ${data.message}`);
-    }
-  };
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.delete('res');
+    router.replace(`${pathname}?${params.toString()}`);
+  }, []);
+
+  useEffect(() => {
+    console.log(res);
+  }, [res]);
 
   return (
-    <Container>
-      <button onClick={() => sendCommand('left')}>send command</button>
-    </Container>
+    <div className={style.container}>
+      <button
+        className={style.button}
+        onMouseDown={() => sendCommand('left-down')}
+        onMouseUp={() => sendCommand('left-up')}
+      >
+        left
+      </button>
+      <button
+        className={style.button}
+        onMouseDown={() => sendCommand('right-down')}
+        onMouseUp={() => sendCommand('right-up')}
+      >
+        right
+      </button>
+    </div>
   );
 };
 

@@ -1,9 +1,7 @@
-'use client';
-
-import { Container } from './header.elements';
+import style from './header.module.css';
 
 const Header = () => {
-  return <Container>Header</Container>;
+  return <div className={style.container}>Header</div>;
 };
 
 export default Header;
