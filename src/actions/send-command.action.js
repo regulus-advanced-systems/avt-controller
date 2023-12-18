@@ -7,7 +7,7 @@ const sendCommand = async (command) => {
     const AMQ_URL = 'http://localhost:8161/api/message/test?type=queue';
     const AMQ_USERNAME = 'admin';
     const AMQ_PASSWORD = 'admin';
-    const res = await fetch(AMQ_URL, {
+    await fetch(AMQ_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -15,7 +15,7 @@ const sendCommand = async (command) => {
       },
       body: `body=${command}`,
     });
-    const data = await res.json();
+    // const data = await res.json();
   } catch (error) {
     console.log(error);
     redirect('/?res=error');
