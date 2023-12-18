@@ -17,6 +17,7 @@ const sendCommand = async (command) => {
     });
     const data = await res.json();
   } catch (error) {
+    console.log(error);
     redirect('/?res=error');
   }
 
