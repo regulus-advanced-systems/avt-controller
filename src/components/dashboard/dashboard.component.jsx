@@ -1,27 +1,23 @@
 'use client';
 
-import { useEffect } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-
-import { sendCommand } from '@/actions/send-command.action';
-
 import style from './dashboard.module.css';
 
 const Dashboard = () => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const res = searchParams.get('res');
-
-  useEffect(() => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.delete('res');
-    router.replace(`${pathname}?${params.toString()}`);
-  }, []);
-
-  useEffect(() => {
-    console.log(res);
-  }, [res]);
+  const sendCommand = async (command) => {
+    try {
+      const res = await fetch('/api/v1/command', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ command }),
+      });
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className={style.container}>
